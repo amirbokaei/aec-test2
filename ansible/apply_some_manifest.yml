@@ -1,0 +1,8 @@
+- hosts: servers
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Apply manifest
+      k8s:
+        definition: "{{ lookup('file', 'deployment.yml') }}"
+        state: present

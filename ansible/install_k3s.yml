@@ -1,0 +1,17 @@
+- hosts: servers
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Download k3s download script
+      get_url:
+        url: https://get.k3s.io
+        dest: /tmp/install-k3s.sh
+        mode: '0775'
+
+    - name: run k3s installer script
+      shell: /tmp/install-k3s.sh
+      register: install_output
+
+    - name: Display output
+      debug:
+        var: install_output.stdout_lines
